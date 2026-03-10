@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 type Toast = { id: string; message: string };
 
 let toasts: Toast[] = [];
-let listeners: ((t: Toast[]) => void)[] = [];
+const listenerIds = new Map<symbol, (t: Toast[]) => void>();
+
+function notifyListeners(): void {
+  const snapshot = [...toasts];
+  listenerIds.forEach((fn) => fn(snapshot));
+}
 
 export function getToasts(): Toast[] {
   return toasts;
@@ -12,22 +17,26 @@ export function getToasts(): Toast[] {
 export function addToast(message: string): void {
   const id = Math.random().toString(36).slice(2);
   toasts = [...toasts, { id, message }];
-  listeners.forEach((fn) => fn(toasts));
+  notifyListeners();
 }
 
 export function removeToast(id: string): void {
   toasts = toasts.filter((t) => t.id !== id);
-  listeners.forEach((fn) => fn(toasts));
+  notifyListeners();
 }
 
 export function Toaster() {
-  const [state, setState] = useState(toasts);
+  const [state, setState] = useState<Toast[]>(() => [...toasts]);
+
   useEffect(() => {
-    listeners.push(setState);
+    const id = Symbol("toaster");
+    listenerIds.set(id, setState);
+    setState([...toasts]);
     return () => {
-      listeners = listeners.filter((l) => l !== setState);
+      listenerIds.delete(id);
     };
   }, []);
+
   return (
     <div
       data-slot="toaster"

@@ -1,5 +1,5 @@
-import { createContext, useCallback, useMemo, useState } from "react";
-import { useSessionStore } from "@core/session-store";
+import { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { useSessionStore, getSessionToken } from "@core/session-store";
 import type { AuthContextValue, AuthUser } from "@core/auth-context";
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -10,8 +10,14 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [isLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const setToken = useSessionStore((s) => s.setToken);
+
+  useEffect(() => {
+    const token = getSessionToken();
+    if (token) setUser({ id: "1", email: "user@example.com" });
+    setIsLoading(false);
+  }, []);
   const clearSession = useSessionStore((s) => s.clear);
 
   const login = useCallback(

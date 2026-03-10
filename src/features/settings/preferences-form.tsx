@@ -1,6 +1,8 @@
 import { useForm } from "@tanstack/react-form";
 import { FormFieldWrapper } from "@pattern/form";
 import { Button } from "@ui/button";
+import { createFormSubmitHandler } from "@pattern/form.hooks";
+import { preferencesSchema } from "@features/settings/schemas";
 import type { PreferencesFormData } from "@features/settings/schemas";
 
 type PreferencesFormProps = {
@@ -14,8 +16,9 @@ export function PreferencesForm({ defaultValues, onSubmit }: PreferencesFormProp
       theme: defaultValues?.theme ?? "light",
       notifications: defaultValues?.notifications ?? false,
     },
-    onSubmit: async ({ value }) => {
-      await onSubmit(value);
+    onSubmit: async () => {
+      const handler = createFormSubmitHandler(preferencesSchema, onSubmit);
+      await handler(form);
     },
   });
 

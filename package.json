@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:oxlint": "oxlint .",
-    "test": "vitest run",
+    "test": "vitest run --config vitest.config.unit.ts && vitest run --config vitest.config.browser.ts && vitest run --config vitest.config.integration.ts",
     "test:unit": "vitest run --config vitest.config.unit.ts",
     "test:browser": "vitest run --config vitest.config.browser.ts",
     "test:integration": "vitest run --config vitest.config.integration.ts"
