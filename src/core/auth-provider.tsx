@@ -10,7 +10,7 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState(true);
   const setToken = useSessionStore((s) => s.setToken);
   const clearSession = useSessionStore((s) => s.clear);
 

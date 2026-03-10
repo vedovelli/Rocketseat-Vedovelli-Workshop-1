@@ -1,6 +1,6 @@
-import { createQueryKeys } from "@lukemorales/query-key-factory";
+import { createQueryKeyStore } from "@lukemorales/query-key-factory";
 
-export const queryKeys = createQueryKeys({
+export const queryKeys = createQueryKeyStore({
   items: {
     all: null,
     detail: (id: string) => ({ queryKey: [id] }),
@@ -10,5 +10,4 @@ export const queryKeys = createQueryKeys({
     all: null,
   },
 });
-
 export type QueryKeys = typeof queryKeys;
