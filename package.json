@@ -51,5 +51,10 @@
     "@vitejs/plugin-react": "^4.3.4",
     "vitest": "^2.1.0"
   },
-  "packageManager": "pnpm@9.14.0"
+  "packageManager": "pnpm@9.14.0",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }
