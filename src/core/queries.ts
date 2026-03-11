@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { queryKeys } from "@core/keys";
+import { httpResource } from "@core/http-resource";
 
 type ItemRecord = { id: string; title: string };
 
@@ -37,15 +38,9 @@ export type ProductRecord = {
   status: "active" | "inactive";
 };
 
-async function fetchProducts(): Promise<ProductRecord[]> {
-  const res = await fetch("/api/products");
-  if (!res.ok) throw new Error("Failed to fetch products");
-  return res.json();
-}
-
 export const productsQueryOptions = queryOptions({
   queryKey: queryKeys.products.list().queryKey,
-  queryFn: fetchProducts,
+  queryFn: httpResource<ProductRecord[]>("GET", "/products"),
   staleTime: 60_000,
   gcTime: 5 * 60_000,
 });
@@ -53,11 +48,7 @@ export const productsQueryOptions = queryOptions({
 export const productDetailQueryOptions = (id: string) =>
   queryOptions({
     queryKey: queryKeys.products.detail(id).queryKey,
-    queryFn: async (): Promise<ProductRecord> => {
-      const res = await fetch(`/api/products/${id}`);
-      if (!res.ok) throw new Error("Failed to fetch product");
-      return res.json();
-    },
+    queryFn: httpResource<ProductRecord>("GET", `/products/${id}`),
     enabled: !!id,
     staleTime: 60_000,
   });

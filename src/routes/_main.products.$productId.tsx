@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { productDetailQueryOptions } from "@core/queries";
+import { useProductDetail } from "@features/products/hooks";
 import { ProductForm } from "@features/products/form";
 import { Loading } from "@ui/loading";
 
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_main/products/$productId")({
 function ProductDetailPage() {
   const { productId } = Route.useParams();
   const navigate = useNavigate();
-  const { data, isLoading, error } = useQuery(productDetailQueryOptions(productId));
+  const { data, isLoading, error } = useProductDetail(productId);
   if (isLoading) return <Loading />;
   if (error || !data) return <p className="text-red-600">Falha ao carregar produto.</p>;
   return (

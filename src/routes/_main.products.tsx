@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductsList } from "@features/products/list";
+import { productsQueryOptions } from "@core/queries";
 
 export const Route = createFileRoute("/_main/products")({
   component: ProductsListPage,
+  loader: async ({ context }) => {
+    await context.queryClient.prefetchQuery(productsQueryOptions);
+  },
 });
 
 function ProductsListPage() {

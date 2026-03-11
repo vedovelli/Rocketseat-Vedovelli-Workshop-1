@@ -12,7 +12,7 @@ type ProductFormProps = {
   isEdit?: boolean;
 };
 
-export function ProductForm({ defaultValues, onSubmit }: ProductFormProps) {
+export function ProductForm({ defaultValues, onSubmit, isEdit = false }: ProductFormProps) {
   const form = useForm<ProductFormData>({
     defaultValues: {
       id: defaultValues?.id ?? undefined,
@@ -58,7 +58,7 @@ export function ProductForm({ defaultValues, onSubmit }: ProductFormProps) {
                     name={String(field.name)}
                     value={field.state.value ?? 0}
                     onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(Number(e.target.value) as never)}
+                    onChange={(e) => field.handleChange(Number(e.target.value))}
                     aria-invalid={!!error}
                     className="flex h-9 w-full rounded-md border border-neutral-300 bg-white px-3 py-1 text-sm shadow-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50"
                   />
@@ -80,7 +80,7 @@ export function ProductForm({ defaultValues, onSubmit }: ProductFormProps) {
                     name={String(field.name)}
                     value={String(field.state.value ?? "active")}
                     onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value as never)}
+                    onChange={(e) => field.handleChange(e.target.value as "active" | "inactive")}
                     aria-invalid={!!error}
                     className="flex h-9 w-full rounded-md border border-neutral-300 bg-white px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-0"
                   >
@@ -93,7 +93,7 @@ export function ProductForm({ defaultValues, onSubmit }: ProductFormProps) {
             );
           }}
         </form.Field>
-        <Button type="submit" variant="primary">Salvar</Button>
+        <Button type="submit" variant="primary">{isEdit ? "Salvar alterações" : "Criar produto"}</Button>
       </form>
     </div>
   );
