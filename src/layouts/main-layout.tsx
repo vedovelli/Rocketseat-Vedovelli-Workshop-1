@@ -10,6 +10,7 @@ type MainLayoutProps = {
 const navLinks = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/items", label: "Items" },
+  { to: "/products", label: "Produtos" },
   { to: "/settings", label: "Configurações" },
 ] as const;
 
