@@ -25,30 +25,32 @@ function LoginPage() {
   );
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-xl font-semibold">Log in</h1>
-      <form className="space-y-3" onSubmit={handleSubmit}>
+    <div className="space-y-6">
+      <h1 className="text-xl font-semibold text-app-foreground">Entrar</h1>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <label className="block">
-          <span className="text-sm text-neutral-600">Email</span>
+          <span className="text-sm font-medium text-app-foreground">Email</span>
           <Input
             type="email"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full"
+            className="mt-1 block w-full border-app-border"
           />
         </label>
         <label className="block">
-          <span className="text-sm text-neutral-600">Password</span>
+          <span className="text-sm font-medium text-app-foreground">Senha</span>
           <Input
             type="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full"
+            className="mt-1 block w-full border-app-border"
           />
         </label>
-        <Button type="submit">Log in</Button>
+        <Button type="submit" variant="primary" className="w-full">
+          Entrar
+        </Button>
       </form>
     </div>
   );

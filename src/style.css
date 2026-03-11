@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+/* App theme: slate base + emerald accent */
+@theme {
+  --color-app-bg: #f1f5f9;
+  --color-app-surface: #ffffff;
+  --color-app-border: #e2e8f0;
+  --color-app-muted: #64748b;
+  --color-app-foreground: #0f172a;
+  --color-app-primary: #059669;
+  --color-app-primary-hover: #047857;
+  --color-app-primary-muted: #d1fae5;
+  --color-app-accent: #0d9488;
+  --color-app-accent-muted: #ccfbf1;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Base layout background and font */
+body {
+  background-color: var(--color-app-bg);
+  color: var(--color-app-foreground);
+  font-family: var(--font-sans);
+}

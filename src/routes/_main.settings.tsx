@@ -11,9 +11,14 @@ function SettingsPage() {
     // persist or API call
   };
   return (
-    <div>
-      <h1 className="text-xl font-semibold mb-4">Settings</h1>
-      <PreferencesForm onSubmit={handleSubmit} />
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-app-foreground">Configurações</h1>
+        <p className="text-app-muted mt-1">Preferências da aplicação.</p>
+      </div>
+      <div className="rounded-xl border border-app-border bg-app-surface p-6 shadow-sm">
+        <PreferencesForm onSubmit={handleSubmit} />
+      </div>
     </div>
   );
 }

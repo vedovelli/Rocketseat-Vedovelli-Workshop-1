@@ -5,13 +5,17 @@ import { Link } from "@tanstack/react-router";
 export function ItemsList() {
   const { data, isLoading, error } = useItemsList();
   if (isLoading) return <Loading />;
-  if (error) return <p className="text-red-600">Failed to load items.</p>;
-  if (!data?.length) return <p className="text-neutral-600">No items.</p>;
+  if (error) return <p className="text-red-600">Falha ao carregar itens.</p>;
+  if (!data?.length) return <p className="text-app-muted py-4">Nenhum item cadastrado.</p>;
   return (
-    <ul className="space-y-2">
+    <ul className="divide-y divide-app-border">
       {data.map((item) => (
         <li key={item.id}>
-          <Link to="/items/$itemId" params={{ itemId: item.id }} className="text-blue-600 hover:underline">
+          <Link
+            to="/items/$itemId"
+            params={{ itemId: item.id }}
+            className="block py-3 text-app-primary font-medium transition-colors hover:text-app-primary-hover hover:underline"
+          >
             {item.title}
           </Link>
         </li>

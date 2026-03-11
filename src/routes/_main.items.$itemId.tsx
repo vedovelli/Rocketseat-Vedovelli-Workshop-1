@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { itemDetailQueryOptions } from "@core/queries";
 import { Loading } from "@ui/loading";
@@ -16,9 +16,14 @@ function ItemDetailPage() {
   if (isLoading) return <Loading />;
   if (error || !data) return <p className="text-red-600">Failed to load item.</p>;
   return (
-    <div>
-      <h1 className="text-xl font-semibold">{data.title}</h1>
-      <p className="text-neutral-600">ID: {data.id}</p>
+    <div className="space-y-4">
+      <Link to="/items" className="text-sm text-app-primary hover:underline">
+        ← Voltar aos itens
+      </Link>
+      <div className="rounded-xl border border-app-border bg-app-surface p-6 shadow-sm">
+        <h1 className="text-2xl font-bold text-app-foreground">{data.title}</h1>
+        <p className="text-app-muted mt-2">ID: {data.id}</p>
+      </div>
     </div>
   );
 }
